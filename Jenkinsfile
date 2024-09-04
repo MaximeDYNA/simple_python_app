@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/MaximeDYNA/simple_python_app.git' // Replace with your repository URL
+                git branch: 'main', url: 'https://github.com/MaximeDYNA/simple_python_app.git' // Replace with your repository URL
             }
         }
 
