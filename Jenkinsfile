@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.8-slim'  // Image avec Python préinstallé
-            args '-v /var/run/docker.sock:/var/run/docker.sock'  // Docker-in-Docker
+            args '-u root'  // Docker-in-Docker
         }
     }
 
@@ -22,7 +22,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh "${PYTHON_ENV} -m pip install --upgrade pip"
-                sh "${PYTHON_ENV} -m pip install -r requirements.txt"
+                sh "${PYTHON_ENV} -m pip install --no-cache-dir -r requirements.txt"
             }
         }
 
