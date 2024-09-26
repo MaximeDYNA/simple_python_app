@@ -51,8 +51,9 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        sh "${PYTHON_ENV} -m pip install --upgrade pip"
-                        sh "${PYTHON_ENV} -m pip install --no-cache-dir -r requirements.txt"
+                        sh "pip install --upgrade pip"
+                        sh "pip install --no-cache-dir -r requirements.txt"
+                        //${PYTHON_ENV} -m
                     }
                 }
             }
@@ -62,7 +63,7 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        sh "${PYTHON_ENV} -m unittest discover"
+                        sh "python3 -m unittest discover"
                     }
                 }
             }

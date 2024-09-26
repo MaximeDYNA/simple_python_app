@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f434c17e-1e36-4aad-8ebc-fc9ee27108c8" name="Changes" comment="first commit" />
+    <list default="true" id="f434c17e-1e36-4aad-8ebc-fc9ee27108c8" name="Changes" comment="first commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/Jenkinsfile" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +90,7 @@
       <workItem from="1725466414769" duration="3794000" />
       <workItem from="1727149342067" duration="1467000" />
       <workItem from="1727255759657" duration="1727000" />
-      <workItem from="1727342468162" duration="12318000" />
+      <workItem from="1727342468162" duration="13391000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
