@@ -1,9 +1,13 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     environment {
-        // Specify the Python path directly
-        PYTHON_ENV = '/usr/bin/python3'  // or the full path to Python on your system
+        PYTHON_ENV = '/usr/bin/python3'  // Adjust the Python path if needed
         DOCKER_IMAGE = 'dnmj/simple_python_app'  // Docker Hub repository name
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'  // Jenkins credentials ID for Docker Hub
     }
@@ -11,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/MaximeDYNA/simple_python_app.git' // Replace with your repository URL
+                git branch: 'main', url: 'https://github.com/MaximeDYNA/simple_python_app.git' // Your repository URL
             }
         }
 
@@ -31,8 +35,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image
-                    sh " sudo docker build -t ${DOCKER_IMAGE}:latest ."
+                    // Build the Docker image without sudo
+                    sh "docker build -t ${DOCKER_IMAGE}:latest ."
                 }
             }
         }
@@ -49,7 +53,6 @@ pipeline {
                 }
             }
         }
-
 
         stage('Deploy') {
             steps {
