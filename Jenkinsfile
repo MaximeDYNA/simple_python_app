@@ -13,6 +13,16 @@ pipeline {
     }
 
     stages {
+        stage('Pull Docker Image') {
+            steps {
+                script {
+                    // Pull the docker:latest image from Docker Hub
+                    sh 'docker pull docker:latest'
+                }
+            }
+        }
+
+    stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/MaximeDYNA/simple_python_app.git' // Your repository URL
