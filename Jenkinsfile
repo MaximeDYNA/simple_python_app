@@ -13,6 +13,18 @@ pipeline {
     }
 
     stages {
+        stage('Run Docker Command') {
+            steps {
+                script {
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        // Exécutez un shell ou une commande spécifique
+                        sh "docker run -t -d --entrypoint='' -u root -v /var/run/docker.sock:/var/run/docker.sock -w '/var/lib/jenkins/workspace/Simple Python App Pipeline' docker:latest cat"
+                    }
+                }
+            }
+        }
+
+
         stage('Pull Docker Image') {
             steps {
                 script {
