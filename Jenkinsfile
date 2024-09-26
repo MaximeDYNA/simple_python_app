@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.8-slim'  // Image avec Python préinstallé
-            args '-u root'  // Docker-in-Docker
+            args '-u root -v /var/run/docker.sock:/var/run/docker.sock'  // Docker-in-Docker
         }
     }
 
@@ -31,6 +31,27 @@ pipeline {
                 sh "${PYTHON_ENV} -m unittest discover"
             }
         }
+
+
+        stage('Install Docker') {
+            steps {
+                sh '''
+                apt-get update && \
+                apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+                curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+                add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+                apt-get update && \
+                apt-get install -y docker-ce docker-ce-cli containerd.io
+                '''
+            }
+        }
+
+        stage('Verify Docker Installation') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+
 
         stage('Build Docker Image') {
             steps {
