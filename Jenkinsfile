@@ -21,9 +21,7 @@ pipeline {
                 }
             }
         }
-    }
 
-    stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/MaximeDYNA/simple_python_app.git' // Your repository URL
