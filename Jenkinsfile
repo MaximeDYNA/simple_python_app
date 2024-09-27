@@ -13,6 +13,21 @@ pipeline {
     }
 
     stages {
+
+         // Étape pour installer Python avant de tirer l'image Docker
+        stage('Install Python') {
+            steps {
+                script {
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        // Mettre à jour les paquets et installer Python3
+                        sh 'apt-get update && apt-get install -y python3 python3-pip'
+                        // Vérifier l'installation de Python3
+                        sh 'python3 --version'
+                    }
+                }
+            }
+        }
+
         stage('Run Docker Command') {
             steps {
                 script {
@@ -51,9 +66,9 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        sh "python3 -m pip install --upgrade pip"
-                        sh "python3 -m pip install --no-cache-dir -r requirements.txt"
-                        //${PYTHON_ENV} -m
+                        sh "${PYTHON_ENV} -m pip install --upgrade pip"
+                        sh "${PYTHON_ENV} -m pip install --no-cache-dir -r requirements.txt"
+                        //
                     }
                 }
             }
@@ -63,7 +78,7 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        sh "python3 -m unittest discover"
+                        sh "${PYTHON_ENV} -m unittest discover"
                     }
                 }
             }
